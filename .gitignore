@@ -26,6 +26,9 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
-
+# swp
+*.swp
+# Bower
+bower_components
 # Gem
 Gemfile.lock
