@@ -32,3 +32,8 @@ node_modules
 bower_components
 # Gem
 Gemfile.lock
+#sass
+.sass-cache
+
+#temporary
+tmp

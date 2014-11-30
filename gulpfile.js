@@ -32,13 +32,17 @@ gulp.task('tsc', function () {
 });
 
 gulp.task('compass', function () {
-  gulp.src(["src/**/*.sass"])
-    .pipe(plumber())
+  gulp.src(["src/**/*.scss"])
+    .pipe(plumber({
+      errorHandler: function(error){
+        console.log(error.message);
+      }
+    }))
     .pipe(compass({
+      config_file: 'compass_config.rb',
       project: __dirname,
-      css: 'css',
-      sass: 'sass',
-      image: 'img'
+      css: 'tmp/css',
+      sass: 'src'
     })).pipe(gulp.dest('./dist'));
 });
 
