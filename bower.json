@@ -1,0 +1,17 @@
+{
+  "name": "nditor",
+  "version": "0.0.0",
+  "homepage": "https://github.com/n-kats/nditor",
+  "authors": [
+    "n-kats <n-kats19890214@hotmail.co.jp>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "nditor",
+  "version": "1.0.0",
+  "description": "nditor\r ======",
+  "main": "dist/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n-kats/nditor.git"
+  },
+  "author": "n-kats",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/n-kats/nditor/issues"
+  },
+  "homepage": "https://github.com/n-kats/nditor",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-compass": "^2.0.3",
+    "gulp-jade": "^0.10.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-slim": "0.0.10",
+    "gulp-tsc": "^0.9.2"
+  }
+}
