@@ -24,6 +24,15 @@ html lang="ja" ng-app="nditor"
               | hoge
 
         .col-sm-9.col-sm-offset-3.col-xs-10.col-xs-offset-2
+          div ng-controller="editorCtrl as editor"
+            h2
+              | {{ editor.name }}
+            form ng-submit="editor.save()"
+              textarea ng-model="document"
+              input type="submit" value="Save"
+
+            pre
+              | {{ editor.document }}
           ul
             - 100.times do |i|
               li = i
