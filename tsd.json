@@ -13,6 +13,9 @@
     },
     "node/node.d.ts": {
       "commit": "16fc1fb8b440e55e88bd1bbb393dcf2e9fb07d22"
+    },
+    "node-webkit/node-webkit.d.ts": {
+      "commit": "30f15413703760610a3abad3d174d1ec74af9caf"
     }
   }
 }
