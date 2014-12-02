@@ -11,6 +11,7 @@ var nditor;
             this.name = "nditor";
         }
         EditorController.prototype.save = function () {
+            this.document = this.$scope.document;
             /*
             exec('node -v', (err, stdout, stderr) => {
                 if (!err) {
@@ -23,5 +24,50 @@ var nditor;
         return EditorController;
     })();
     nditor.EditorController = EditorController;
+    var FileController = (function () {
+        function FileController() {
+        }
+        return FileController;
+    })();
+    nditor.FileController = FileController;
+    var ReportController = (function () {
+        function ReportController() {
+        }
+        return ReportController;
+    })();
+    nditor.ReportController = ReportController;
+    var PdfController = (function () {
+        function PdfController() {
+        }
+        return PdfController;
+    })();
+    nditor.PdfController = PdfController;
+    var ArXivController = (function () {
+        function ArXivController() {
+            this.query = "query";
+            this.papers = [];
+            for (var i = 0; i < 30; i++) {
+                this.papers.push(new ArXivPaper("title" + i, ["author1", "authors"], "|abstract", new Link()));
+            }
+            console.log(this.papers);
+        }
+        return ArXivController;
+    })();
+    nditor.ArXivController = ArXivController;
     app.controller('editorCtrl', EditorController);
+    app.controller('arxivCtrl', ArXivController);
 })(nditor || (nditor = {}));
+var ArXivPaper = (function () {
+    function ArXivPaper(title, authors, abstract, pdf) {
+        this.title = title;
+        this.authors = authors;
+        this.abstract = abstract;
+        this.pdf = pdf;
+    }
+    return ArXivPaper;
+})();
+var Link = (function () {
+    function Link() {
+    }
+    return Link;
+})();

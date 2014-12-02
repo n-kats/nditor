@@ -5,36 +5,55 @@ html lang="ja" ng-app="nditor"
     title nditor
     script src="../bower_components/jquery/dist/jquery.js"
     script src="../bower_components/angular/angular.js"
-    link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"
-    link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.css"
+    // link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"
+    // link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.css"
     link rel="stylesheet" href="./style.css"
-    script src="../bower_components/bootstrap/dist/js/bootstrap.js"
-  body
-    .container-fluid
-      .row
-        .col-sm-3.col-xs-2.sidebar
-          ul.nav.nav-sidebar
-            li
-              button.btn.btn-default.btn-lg type="button"
-                | foo
-            li 
-              button type="button"
-                | value="foo"
-            li 
-              | hoge
-
-        .col-sm-9.col-sm-offset-3.col-xs-10.col-xs-offset-2
-          div ng-controller="editorCtrl as editor"
-            h2
-              | {{ editor.name }}
-            form ng-submit="editor.save()"
+    // script src="../bower_components/bootstrap/dist/js/bootstrap.js"
+    script src="../bower_components/jqueryui/jquery-ui.min.js"
+    link rel="stylesheet" href="../bower_components/metro-ui-css/min/metro-bootstrap.min.css"
+    link rel="stylesheet" href="../bower_components/metro-ui-css/min/metro-responsive.min.css"
+    script src="../bower_components/metro-ui-css/min/metro.min.js"
+    // script src="../bower_components/metro-ui-css/js/metro-scroll.js"
+  body.metro
+    div ng-controller="editorCtrl as editor"
+      .main style="width: 70%;"
+        .tab-control data-role="tab-control"
+          ul.tabs
+            li.active
+              a href="#_arxiv"
+                | arXiv
+        .frames
+          .frame#_arxiv
+            .arxiv ng-controller="arxivCtrl as arxiv"
+              .accordion ng-repeat="paper in arxiv.papers" data-role="accordion"
+                .accordion-frame
+                  a.heading href="#"
+                    p
+                      | {{paper.title}}
+                    p
+                      | {{paper.authors}}
+                  .content
+                    | {{paper.abstract}}
+                    = "hoge " * 100
+      nav.sidebar.dark.my-sidebar style="width: 30%;right: 0%;"
+        ul
+          li.title 
+            | {{editor.name}}
+          li
+            .input-control.textarea
               textarea ng-model="document"
-              input type="submit" value="Save"
-
             pre
               | {{ editor.document }}
-          ul
-            - 100.times do |i|
-              li = i
+          li
+            a href="#" ng-click="editor.save()"
+              | save
+
+          li
+            a.dropdown-toggle href="#"
+            ul.dropdown-toggle data-role="dropdown"
+              - 3.times do |i|
+                li = i
+          - 1.times do |i|
+            li = i
     script src="./main.js"
     script src="./gui.js"

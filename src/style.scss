@@ -1,3 +1,12 @@
-.sidebar{
+body{
+  background-color: #D7C4BB;
+}
+//#165e83藍色
+.my-sidebar{
   position: fixed;
+  top: 0;
+  bottom: 0;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
