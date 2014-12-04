@@ -14,15 +14,35 @@ html lang="ja" ng-app="nditor"
     link rel="stylesheet" href="../bower_components/metro-ui-css/min/metro-responsive.min.css"
     script src="../bower_components/metro-ui-css/min/metro.min.js"
     // script src="../bower_components/metro-ui-css/js/metro-scroll.js"
-  body.metro
+  body.metro ng-controller="outlineCtrl as outline"
     div ng-controller="editorCtrl as editor"
-      .main style="width: 70%;"
+      .main style="width: {{outline.main_size}}%;"
         .tab-control data-role="tab-control"
           ul.tabs
             li.active
+              a href="#_video-player"
+                | Video
+            //li
+              a href="#_encoder"
+                | Encoder
+            li
               a href="#_arxiv"
                 | arXiv
+            li
+              a href="#_pdf"
+                | PDF
+            li
+              a href="#_todo"
+                | TODO
+            li
+              a href="#_draw"
+                | DRAW
         .frames
+          .frame#_video-player
+            .video-player
+          //.frame#_encoder
+            .encoder
+              video#enco
           .frame#_arxiv
             .arxiv ng-controller="arxivCtrl as arxiv"
               .accordion ng-repeat="paper in arxiv.papers" data-role="accordion"
@@ -35,10 +55,10 @@ html lang="ja" ng-app="nditor"
                   .content
                     | {{paper.abstract}}
                     = "hoge " * 100
-      nav.sidebar.dark.my-sidebar style="width: 30%;right: 0%;"
+      nav.sidebar.dark.my-sidebar style="width: {{outline.nav_size}}%;right: 0%;"
         ul
           li.title 
-            | {{editor.name}}
+            | {{outline.name}}
           li
             .input-control.textarea
               textarea ng-model="document"

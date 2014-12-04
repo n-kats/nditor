@@ -4,6 +4,15 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var nditor;
 (function (nditor) {
+    var OutlineController = (function () {
+        function OutlineController() {
+            this.name = "nditor";
+            this.main_size = 70;
+            this.nav_size = 30;
+        }
+        return OutlineController;
+    })();
+    nditor.OutlineController = OutlineController;
     var EditorController = (function () {
         function EditorController($scope) {
             this.$scope = $scope;
@@ -54,6 +63,7 @@ var nditor;
         return ArXivController;
     })();
     nditor.ArXivController = ArXivController;
+    app.controller('outlineCtrl', OutlineController);
     app.controller('editorCtrl', EditorController);
     app.controller('arxivCtrl', ArXivController);
 })(nditor || (nditor = {}));

@@ -5,6 +5,12 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 
 module nditor{
+    export class OutlineController {
+        name = "nditor";
+        main_size = 70;
+        nav_size = 30;
+    }
+
     export class EditorController{
         name: string;
         document: string;
@@ -41,6 +47,7 @@ module nditor{
         }
     }
 
+    app.controller('outlineCtrl', OutlineController);
     app.controller('editorCtrl', EditorController);
     app.controller('arxivCtrl', ArXivController);
 }
