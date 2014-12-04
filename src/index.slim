@@ -3,47 +3,31 @@ html lang="ja" ng-app="nditor"
   head
     meta charset="UTF-8"
     title nditor
-    script src="../bower_components/jquery/dist/jquery.js"
-    script src="../bower_components/angular/angular.js"
-    // link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"
-    // link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.css"
     link rel="stylesheet" href="./style.css"
-    // script src="../bower_components/bootstrap/dist/js/bootstrap.js"
-    script src="../bower_components/jqueryui/jquery-ui.min.js"
-    link rel="stylesheet" href="../bower_components/metro-ui-css/min/metro-bootstrap.min.css"
-    link rel="stylesheet" href="../bower_components/metro-ui-css/min/metro-responsive.min.css"
-    script src="../bower_components/metro-ui-css/min/metro.min.js"
-    // script src="../bower_components/metro-ui-css/js/metro-scroll.js"
-  body.metro ng-controller="outlineCtrl as outline"
+    link rel="stylesheet" href="../bower_components/materialize/bin/materialize.css"
+  body ng-controller="outlineCtrl as outline"
     div ng-controller="editorCtrl as editor"
+      ul.tabs style="position: fixed; top: 0;"
+        li.tab
+          a href="#_video-player"
+            | Video
+        li.tab
+          a href="#_arxiv"
+            | arXiv
+        li.tab
+          a href="#_pdf"
+            | PDF
+        li.tab
+          a href="#_todo"
+            | TODO
+        li.tab
+          a href="#_draw"
+            | DRAW
       .main style="width: {{outline.main_size}}%;"
-        .tab-control data-role="tab-control"
-          ul.tabs
-            li.active
-              a href="#_video-player"
-                | Video
-            //li
-              a href="#_encoder"
-                | Encoder
-            li
-              a href="#_arxiv"
-                | arXiv
-            li
-              a href="#_pdf"
-                | PDF
-            li
-              a href="#_todo"
-                | TODO
-            li
-              a href="#_draw"
-                | DRAW
-        .frames
-          .frame#_video-player
+        .container
+          #_video-player
             .video-player
-          //.frame#_encoder
-            .encoder
-              video#enco
-          .frame#_arxiv
+          #_arxiv
             .arxiv ng-controller="arxivCtrl as arxiv"
               .accordion ng-repeat="paper in arxiv.papers" data-role="accordion"
                 .accordion-frame
@@ -55,7 +39,13 @@ html lang="ja" ng-app="nditor"
                   .content
                     | {{paper.abstract}}
                     = "hoge " * 100
-      nav.sidebar.dark.my-sidebar style="width: {{outline.nav_size}}%;right: 0%;"
+          #_pdf
+            | PDF
+          #_todo
+            | TODO
+          #_draw
+            | OEKAKI
+      .sidebar.dark.my-sidebar style="width: {{outline.nav_size}}%;right: 0%;"
         ul
           li.title 
             | {{outline.name}}
@@ -75,5 +65,13 @@ html lang="ja" ng-app="nditor"
                 li = i
           - 1.times do |i|
             li = i
+    
+    script src="../bower_components/jquery/dist/jquery.js"
+    script src="../bower_components/angular/angular.js"
+    script src="../bower_components/jqueryui/jquery-ui.min.js"
+    script src="../bower_components/materialize/bin/materialize.js"
+    
     script src="./main.js"
     script src="./gui.js"
+    javascript:
+      $(document).ready(function(){$('ul.tabs').tabs()});

@@ -9,6 +9,8 @@ module nditor{
         name = "nditor";
         main_size = 70;
         nav_size = 30;
+        main_tab = "";
+        sidenav_state = "";
     }
 
     export class EditorController{

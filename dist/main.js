@@ -9,6 +9,8 @@ var nditor;
             this.name = "nditor";
             this.main_size = 70;
             this.nav_size = 30;
+            this.main_tab = "";
+            this.sidenav_state = "";
         }
         return OutlineController;
     })();

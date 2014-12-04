@@ -6,20 +6,25 @@ var gulp = require('gulp'),
     compass = require('gulp-compass'),
     exec = require('child_process').exec;
 
+var error_option = {
+  errorHandler: function(error){
+    console.log(error.message);
+  }
+}
 gulp.task('run', function () {
   exec('nodewebkit');
 });
 
 gulp.task('slim', function () {
   gulp.src(["src/**/*.slim"])
-    .pipe(plumber())
+    .pipe(plumber(error_option))
     .pipe(slim())
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('jade', function () {
   gulp.src(["src/**/*.jade"])
-    .pipe(plumber())
+    .pipe(plumber(error_option))
     .pipe(jade())
     .pipe(gulp.dest('./dist'));
 });
@@ -33,11 +38,7 @@ gulp.task('tsc', function () {
 
 gulp.task('compass', function () {
   gulp.src(["src/**/*.scss"])
-    .pipe(plumber({
-      errorHandler: function(error){
-        console.log(error.message);
-      }
-    }))
+    .pipe(plumber(error_option))
     .pipe(compass({
       config_file: 'compass_config.rb',
       project: __dirname,
