@@ -1,12 +1,14 @@
 body{
   background-color: #D7C4BB;
 }
+.main{
+  padding-top: 48px;
+}
 //#165e83藍色
 .my-sidebar{
   position: fixed;
-  top: 50px;
+  top: 48px;
   bottom: 0;
-  display: block;
   overflow-x: hidden;
   overflow-y: auto;
 }

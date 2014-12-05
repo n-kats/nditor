@@ -29,29 +29,28 @@ html lang="ja" ng-app="nditor"
             .video-player
           #_arxiv
             .arxiv ng-controller="arxivCtrl as arxiv"
-              .accordion ng-repeat="paper in arxiv.papers" data-role="accordion"
-                .accordion-frame
-                  a.heading href="#"
-                    p
-                      | {{paper.title}}
-                    p
-                      | {{paper.authors}}
-                  .content
-                    | {{paper.abstract}}
-                    = "hoge " * 100
+              ul.collapsible ng-repeat="paper in arxiv.papers" data-role="accordion"
+                .collapsible-header
+                  | {{paper.title}}
+                  | {{paper.authors}}
+                .collapsible-body
+                  | {{paper.abstract}}
+                  = "hoge " * 100
           #_pdf
             | PDF
           #_todo
             | TODO
           #_draw
             | OEKAKI
-      .sidebar.dark.my-sidebar style="width: {{outline.nav_size}}%;right: 0%;"
+      aside.white-text.teal.darken-4.my-sidebar style="width: {{outline.nav_size}}%;right: 0%;"
+        h3.title 
+          | {{outline.name}}
         ul
-          li.title 
-            | {{outline.name}}
           li
-            .input-control.textarea
-              textarea ng-model="document"
+            .input-field
+              textarea.teal.lighten-4 ng-model="document"
+              label
+                | textarea
             pre
               | {{ editor.document }}
           li
@@ -59,12 +58,13 @@ html lang="ja" ng-app="nditor"
               | save
 
           li
-            a.dropdown-toggle href="#"
-            ul.dropdown-toggle data-role="dropdown"
+            a.dropdown-button.btn href="#" data-activates='dropdown1'
+              | BOTTON
+            ul#dropdown1.dropdown-content
               - 3.times do |i|
-                li = i
-          - 1.times do |i|
-            li = i
+                li
+                  a href="#!"
+                    = i
     
     script src="../bower_components/jquery/dist/jquery.js"
     script src="../bower_components/angular/angular.js"
@@ -74,4 +74,8 @@ html lang="ja" ng-app="nditor"
     script src="./main.js"
     script src="./gui.js"
     javascript:
-      $(document).ready(function(){$('ul.tabs').tabs()});
+      $(document).ready(function(){
+      $('ul.tabs').tabs();
+      $('.collapsible').collapsible();
+      $('.dropdown-button').dropdown();
+      });

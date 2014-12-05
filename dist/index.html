@@ -1,1 +1,101 @@
-<!DOCTYPE html><html lang="ja" ng-app="nditor"><head><meta charset="UTF-8" /><title>nditor</title><link href="./style.css" rel="stylesheet" /><link href="../bower_components/materialize/bin/materialize.css" rel="stylesheet" /></head><body ng-controller="outlineCtrl as outline"><div ng-controller="editorCtrl as editor"><ul class="tabs" style="position: fixed; top: 0;"><li class="tab"><a href="#_video-player">Video</a></li><li class="tab"><a href="#_arxiv">arXiv</a></li><li class="tab"><a href="#_pdf">PDF</a></li><li class="tab"><a href="#_todo">TODO</a></li><li class="tab"><a href="#_draw">DRAW</a></li></ul><div class="main" style="width: {{outline.main_size}}%;"><div class="container"><div id="_video-player"><div class="video-player"></div></div><div id="_arxiv"><div class="arxiv" ng-controller="arxivCtrl as arxiv"><div class="accordion" data-role="accordion" ng-repeat="paper in arxiv.papers"><div class="accordion-frame"><a class="heading" href="#"><p>{{paper.title}}</p><p>{{paper.authors}}</p></a><div class="content">{{paper.abstract}}hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge </div></div></div></div></div><div id="_pdf">PDF</div><div id="_todo">TODO</div><div id="_draw">OEKAKI</div></div></div><div class="sidebar dark my-sidebar" style="width: {{outline.nav_size}}%;right: 0%;"><ul><li class="title">{{outline.name}}</li><li><div class="input-control textarea"><textarea ng-model="document"></textarea></div><pre>{{ editor.document }}</pre></li><li><a href="#" ng-click="editor.save()">save</a></li><li><a class="dropdown-toggle" href="#"></a><ul class="dropdown-toggle" data-role="dropdown"><li>0</li><li>1</li><li>2</li></ul></li><li>0</li></ul></div></div><script src="../bower_components/jquery/dist/jquery.js"></script><script src="../bower_components/angular/angular.js"></script><script src="../bower_components/jqueryui/jquery-ui.min.js"></script><script src="../bower_components/materialize/bin/materialize.js"></script><script src="./main.js"></script><script src="./gui.js"></script><script type="text/javascript">$(document).ready(function(){$('ul.tabs').tabs()});</script></body></html>
+<!DOCTYPE html>
+<html lang="ja" ng-app="nditor">
+  <head>
+    <meta charset="UTF-8" />
+    <title>nditor</title>
+    <link href="./style.css" rel="stylesheet" />
+    <link href="../bower_components/materialize/bin/materialize.css" rel="stylesheet" />
+  </head>
+  <body ng-controller="outlineCtrl as outline">
+    <div ng-controller="editorCtrl as editor">
+      <ul class="tabs" style="position: fixed; top: 0;">
+        <li class="tab">
+          <a href="#_video-player">Video</a>
+        </li>
+        <li class="tab">
+          <a href="#_arxiv">arXiv</a>
+        </li>
+        <li class="tab">
+          <a href="#_pdf">PDF</a>
+        </li>
+        <li class="tab">
+          <a href="#_todo">TODO</a>
+        </li>
+        <li class="tab">
+          <a href="#_draw">DRAW</a>
+        </li>
+      </ul>
+      <div class="main" style="width: {{outline.main_size}}%;">
+        <div class="container">
+          <div id="_video-player">
+            <div class="video-player"></div>
+          </div>
+          <div id="_arxiv">
+            <div class="arxiv" ng-controller="arxivCtrl as arxiv">
+              <ul class="collapsible" data-role="accordion" ng-repeat="paper in arxiv.papers">
+                <div class="collapsible-header">
+                  {{paper.title}}{{paper.authors}}
+                </div>
+                <div class="collapsible-body">
+                  {{paper.abstract}}hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge 
+                </div>
+              </ul>
+            </div>
+          </div>
+          <div id="_pdf">
+            PDF
+          </div>
+          <div id="_todo">
+            TODO
+          </div>
+          <div id="_draw">
+            OEKAKI
+          </div>
+        </div>
+      </div>
+      <aside class="white-text teal darken-4 my-sidebar" style="width: {{outline.nav_size}}%;right: 0%;">
+        <h3 class="title">
+          {{outline.name}}
+        </h3>
+        <ul>
+          <li>
+            <div class="input-field">
+              <textarea class="teal lighten-4" ng-model="document"></textarea><label>textarea</label>
+            </div>
+            <pre>{{ editor.document }}</pre>
+          </li>
+          <li>
+            <a href="#" ng-click="editor.save()">save</a>
+          </li>
+          <li>
+            <a class="dropdown-button btn" data-activates="dropdown1" href="#">BOTTON</a>
+            <ul class="dropdown-content" id="dropdown1">
+              <li>
+                <a href="#!">0</a>
+              </li>
+              <li>
+                <a href="#!">1</a>
+              </li>
+              <li>
+                <a href="#!">2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+    </div>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/jqueryui/jquery-ui.min.js"></script>
+    <script src="../bower_components/materialize/bin/materialize.js"></script>
+    <script src="./main.js"></script>
+    <script src="./gui.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $('ul.tabs').tabs();
+      $('.collapsible').collapsible();
+      $('.dropdown-button').dropdown();
+      });
+    </script>
+  </body>
+</html>

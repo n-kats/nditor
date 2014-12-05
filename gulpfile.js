@@ -18,7 +18,9 @@ gulp.task('run', function () {
 gulp.task('slim', function () {
   gulp.src(["src/**/*.slim"])
     .pipe(plumber(error_option))
-    .pipe(slim())
+    .pipe(slim({
+      pretty: true
+    }))
     .pipe(gulp.dest('./dist'));
 });
 
