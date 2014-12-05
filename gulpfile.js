@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     slim = require('gulp-slim'),
     tsc = require('gulp-tsc'),
     compass = require('gulp-compass'),
+    convertEncoding = require('gulp-convert-encoding'),
     exec = require('child_process').exec;
 
 var error_option = {
@@ -21,6 +22,7 @@ gulp.task('slim', function () {
     .pipe(slim({
       pretty: true
     }))
+    .pipe(convertEncoding({to: "utf-8"}))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -28,6 +30,7 @@ gulp.task('jade', function () {
   gulp.src(["src/**/*.jade"])
     .pipe(plumber(error_option))
     .pipe(jade())
+    .pipe(convertEncoding({to: "utf-8"}))
     .pipe(gulp.dest('./dist'));
 });
 
