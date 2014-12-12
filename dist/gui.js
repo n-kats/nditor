@@ -6,4 +6,5 @@ menu.append(new gui.MenuItem({
         console.log("click menuItem!!");
     }
 }));
+
 menu.popup(20, 20);

@@ -2,6 +2,7 @@
 var app = angular.module('nditor', []);
 var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
+
 var nditor;
 (function (nditor) {
     var OutlineController = (function () {
@@ -15,6 +16,7 @@ var nditor;
         return OutlineController;
     })();
     nditor.OutlineController = OutlineController;
+
     var EditorController = (function () {
         function EditorController($scope) {
             this.$scope = $scope;
@@ -25,16 +27,17 @@ var nditor;
             this.document = this.$scope.document;
             /*
             exec('node -v', (err, stdout, stderr) => {
-                if (!err) {
-                    this.document = this.$scope.document + "\n" + stdout;
-                } else {
-                    console.log(err);
-                }
+            if (!err) {
+            this.document = this.$scope.document + "\n" + stdout;
+            } else {
+            console.log(err);
+            }
             });*/
         };
         return EditorController;
     })();
     nditor.EditorController = EditorController;
+
     var FileController = (function () {
         function FileController() {
         }
@@ -65,10 +68,12 @@ var nditor;
         return ArXivController;
     })();
     nditor.ArXivController = ArXivController;
+
     app.controller('outlineCtrl', OutlineController);
     app.controller('editorCtrl', EditorController);
     app.controller('arxivCtrl', ArXivController);
 })(nditor || (nditor = {}));
+
 var ArXivPaper = (function () {
     function ArXivPaper(title, authors, abstract, pdf) {
         this.title = title;
