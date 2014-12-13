@@ -29,13 +29,16 @@ html lang="ja" ng-app="nditor"
             .video-player
           #_arxiv
             .arxiv ng-controller="arxivCtrl as arxiv"
+              a.btn href="#" ng-click="arxiv.showup()"
+                | update
               ul.collapsible ng-repeat="paper in arxiv.papers" data-role="accordion"
-                .collapsible-header
-                  | {{paper.title}}
-                  | {{paper.authors}}
-                .collapsible-body
-                  | {{paper.abstract}}
-                  = "hoge " * 100
+                li
+                  .collapsible-header
+                    | {{paper.title}}
+                  .collapsible-body
+                    | {{paper.authors}}
+                    br
+                    | {{paper.abstract}}
           #_pdf
             | PDF
           #_todo
@@ -75,7 +78,14 @@ html lang="ja" ng-app="nditor"
     script src="./gui.js"
     javascript:
       $(document).ready(function(){
-      $('ul.tabs').tabs();
-      $('.collapsible').collapsible();
-      $('.dropdown-button').dropdown();
+        init();
       });
+      function init(){
+        $('ul.tabs').tabs();
+        $('.collapsible').collapsible();
+        $('.dropdown-button').dropdown();
+      }
+      function update(){
+        $('.collapsible').collapsible();
+        $('.dropdown-button').dropdown();
+      }

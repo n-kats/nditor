@@ -1,7 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
-var app = angular.module('nditor', []);
-var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
+var app = angular.module('nditor', []), exec = require('child_process').exec, spawn = require('child_process').spawn, xml2js = require('xml2js'), http = require('http');
 
 var nditor;
 (function (nditor) {
@@ -58,13 +56,37 @@ var nditor;
     nditor.PdfController = PdfController;
     var ArXivController = (function () {
         function ArXivController() {
-            this.query = "query";
+            this.query = '?search_query=all:math.GT & start = 0 & max_results = 25';
             this.papers = [];
-            for (var i = 0; i < 30; i++) {
-                this.papers.push(new ArXivPaper("title" + i, ["author1", "authors"], "|abstract", new Link()));
-            }
-            console.log(this.papers);
+            this.load();
         }
+        ArXivController.prototype.load = function () {
+            var _this = this;
+            var url = ArXivController.api_url + this.query;
+            http.get(url, function (res) {
+                var body = '';
+                res.setEncoding('utf8');
+                res.on('data', function (chunk) {
+                    body += chunk;
+                });
+                res.on('end', function () {
+                    xml2js.parseString(body, {
+                        trim: true,
+                        explicitArray: false
+                    }, function (err, data) {
+                        for (var i = 0; i < data.feed.entry.length; i++) {
+                            var entry = data.feed.entry[i];
+                            var paper = new ArXivPaper(entry.title, entry.author, entry.summary, new Link());
+                            _this.papers.push(paper);
+                        }
+                    });
+                });
+            });
+        };
+        ArXivController.prototype.showup = function () {
+            $('.collapsible').collapsible();
+        };
+        ArXivController.api_url = 'http://export.arxiv.org/api/query';
         return ArXivController;
     })();
     nditor.ArXivController = ArXivController;
@@ -76,6 +98,15 @@ var nditor;
 
 var ArXivPaper = (function () {
     function ArXivPaper(title, authors, abstract, pdf) {
+        var _this = this;
+        this.to_json = function () {
+            return {
+                "title": _this.title,
+                "authors": _this.authors,
+                "abstract": _this.abstract,
+                "pdf": _this.pdf
+            };
+        };
         this.title = title;
         this.authors = authors;
         this.abstract = abstract;

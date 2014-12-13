@@ -1,8 +1,10 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-var app = angular.module('nditor', []);
-var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
+var app = angular.module('nditor', []),
+    exec = require('child_process').exec,
+    spawn = require('child_process').spawn,
+    xml2js = require('xml2js'),
+    http = require('http');
 
 module nditor{
     export class OutlineController {
@@ -37,21 +39,47 @@ module nditor{
     export class ReportController { }
     export class PdfController { }
     export class ArXivController {
+        static api_url = 'http://export.arxiv.org/api/query';
         query: any;
         papers: ArXivPaper[];
         constructor() {
-            this.query = "query";
+            this.query = '?search_query=all:math.GT & start = 0 & max_results = 25';
             this.papers = [];
-            for (var i = 0; i < 30; i++) {
-                this.papers.push(new ArXivPaper("title"+i, ["author1", "authors"], "|abstract", new Link()));
-            }
-            console.log(this.papers);
+            this.load();
+        }
+        load() {
+            var url = ArXivController.api_url + this.query;
+            http.get(url, (res) => {
+                var body = '';
+                res.setEncoding('utf8');
+                res.on('data', (chunk) => {
+                    body += chunk;
+                });
+                res.on('end', () => {
+                    xml2js.parseString(body, {
+                        trim: true,
+                        explicitArray: false
+                    }, (err, data) => {
+                        for (var i = 0; i < data.feed.entry.length; i++) {
+                            var entry = data.feed.entry[i];
+                            var paper = new ArXivPaper(entry.title, entry.author, entry.summary, new Link());//.to_json();
+                            this.papers.push(paper);
+                        }
+                    });
+                });
+            });
+        }
+        showup() {
+            $('.collapsible').collapsible();
         }
     }
-
+    
     app.controller('outlineCtrl', OutlineController);
     app.controller('editorCtrl', EditorController);
     app.controller('arxivCtrl', ArXivController);
+}
+interface JQuery {
+    collapsible(): void;
 }
 
 class ArXivPaper {
@@ -64,6 +92,14 @@ class ArXivPaper {
         this.authors = authors;
         this.abstract = abstract;
         this.pdf = pdf;
+    }
+    to_json = () => {
+        return {
+            "title": this.title,
+            "authors": this.authors,
+            "abstract": this.abstract,
+            "pdf": this.pdf
+        }
     }
 }
 class Link { }

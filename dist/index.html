@@ -32,13 +32,16 @@
           </div>
           <div id="_arxiv">
             <div class="arxiv" ng-controller="arxivCtrl as arxiv">
+              <a class="btn" href="#" ng-click="arxiv.showup()">update</a>
               <ul class="collapsible" data-role="accordion" ng-repeat="paper in arxiv.papers">
-                <div class="collapsible-header">
-                  {{paper.title}}{{paper.authors}}
-                </div>
-                <div class="collapsible-body">
-                  {{paper.abstract}}hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge hoge 
-                </div>
+                <li>
+                  <div class="collapsible-header">
+                    {{paper.title}}
+                  </div>
+                  <div class="collapsible-body">
+                    {{paper.authors}}<br />{{paper.abstract}}
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -92,10 +95,17 @@
     <script src="./gui.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-      $('ul.tabs').tabs();
-      $('.collapsible').collapsible();
-      $('.dropdown-button').dropdown();
+        init();
       });
+      function init(){
+        $('ul.tabs').tabs();
+        $('.collapsible').collapsible();
+        $('.dropdown-button').dropdown();
+      }
+      function update(){
+        $('.collapsible').collapsible();
+        $('.dropdown-button').dropdown();
+      }
     </script>
   </body>
 </html>
