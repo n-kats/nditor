@@ -45,7 +45,17 @@ html lang="ja" ng-app="nditor"
           #_todo
             | TODO
           #_draw
-            | OEKAKI
+            canvas#canvas__sub.can-sub width="480" height="300"
+            canvas#canvas__main.can width="480" height="300"
+            .canvas-btns
+              button#btn__pen
+                | pen
+              button#btn__eraser
+                | eraser
+              button#btn__clear
+                | clear
+              button#btn__save
+                | save
       aside.white-text.teal.darken-4.my-sidebar style="width: {{outline.nav_size}}%;right: 0%;"
         h3.title 
           | {{outline.name}}
@@ -77,6 +87,7 @@ html lang="ja" ng-app="nditor"
     
     script src="./main.js"
     script src="./gui.js"
+    script src="./draw.js"
     javascript:
       $(document).ready(function(){
         init();

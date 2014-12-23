@@ -12,3 +12,30 @@ body{
   overflow-x: hidden;
   overflow-y: auto;
 }
+.can{
+  background-color: rgba(255,255,255,0);
+  width: 480px;
+  height: 300px;
+  top: 58px;
+  left: 10px;
+  position: absolute;
+}
+.can-sub{
+  background-color: rgba(255,255,255,1);
+  width: 480px;
+  height: 300px;
+  top: 58px;
+  left: 10px;
+  position: absolute;
+}
+#canvas__main{
+  z-index: 0;
+}
+#canvas__cursor{
+  z-index: -10;
+}
+.canvas-btns{
+  top: 360px;
+  z-index: -20;
+  position: absolute;
+}

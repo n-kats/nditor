@@ -2,6 +2,7 @@
 <html lang="ja" ng-app="nditor">
   <head>
     <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
     <title>nditor</title>
     <link href="./style.css" rel="stylesheet" />
     <link href="../bower_components/materialize/bin/materialize.css" rel="stylesheet" />
@@ -52,7 +53,10 @@
             TODO
           </div>
           <div id="_draw">
-            OEKAKI
+            <canvas class="can-sub" height="300" id="canvas__sub" width="480"></canvas><canvas class="can" height="300" id="canvas__main" width="480"></canvas>
+            <div class="canvas-btns">
+              <button id="btn__pen">pen</button><button id="btn__eraser">eraser</button><button id="btn__clear">clear</button><button id="btn__save">save</button>
+            </div>
           </div>
         </div>
       </div>
@@ -93,6 +97,7 @@
     <script src="../bower_components/materialize/bin/materialize.js"></script>
     <script src="./main.js"></script>
     <script src="./gui.js"></script>
+    <script src="./draw.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         init();
