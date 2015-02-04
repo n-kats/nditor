@@ -1,6 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
 var app = angular.module('nditor', []), exec = require('child_process').exec, spawn = require('child_process').spawn, xml2js = require('xml2js'), http = require('http');
-
 var nditor;
 (function (nditor) {
     var OutlineController = (function () {
@@ -14,7 +12,6 @@ var nditor;
         return OutlineController;
     })();
     nditor.OutlineController = OutlineController;
-
     var EditorController = (function () {
         function EditorController($scope) {
             this.$scope = $scope;
@@ -23,19 +20,10 @@ var nditor;
         }
         EditorController.prototype.save = function () {
             this.document = this.$scope.document;
-            /*
-            exec('node -v', (err, stdout, stderr) => {
-            if (!err) {
-            this.document = this.$scope.document + "\n" + stdout;
-            } else {
-            console.log(err);
-            }
-            });*/
         };
         return EditorController;
     })();
     nditor.EditorController = EditorController;
-
     var FileController = (function () {
         function FileController() {
         }
@@ -56,9 +44,8 @@ var nditor;
     nditor.PdfController = PdfController;
     var ArXivController = (function () {
         function ArXivController() {
-            this.query = '?search_query=all:math.GT & start = 0 & max_results = 25';
+            this.query = '?search_query=all:math.GT&start=0&max_results=25& sortBy=lastUpdatedDate & sortOrder=ascending';
             this.papers = [];
-            this.load();
         }
         ArXivController.prototype.load = function () {
             var _this = this;
@@ -90,12 +77,10 @@ var nditor;
         return ArXivController;
     })();
     nditor.ArXivController = ArXivController;
-
     app.controller('outlineCtrl', OutlineController);
     app.controller('editorCtrl', EditorController);
     app.controller('arxivCtrl', ArXivController);
 })(nditor || (nditor = {}));
-
 var ArXivPaper = (function () {
     function ArXivPaper(title, authors, abstract, pdf) {
         var _this = this;

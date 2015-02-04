@@ -6,7 +6,7 @@ var app = angular.module('nditor', []),
     xml2js = require('xml2js'),
     http = require('http');
 
-module nditor{
+module nditor {
     export class OutlineController {
         name = "nditor";
         main_size = 70;
@@ -15,7 +15,7 @@ module nditor{
         sidenav_state = "";
     }
 
-    export class EditorController{
+    export class EditorController {
         name: string;
         document: string;
         constructor(private $scope) {
@@ -43,29 +43,29 @@ module nditor{
         query: any;
         papers: ArXivPaper[];
         constructor() {
-            this.query = '?search_query=all:math.GT & start = 0 & max_results = 25';
+            this.query = '?search_query=all:math.GT&start=0&max_results=25& sortBy=lastUpdatedDate & sortOrder=ascending';
             this.papers = [];
-            this.load();
+            //this.load();
         }
         load() {
             var url = ArXivController.api_url + this.query;
-            http.get(url, (res) => {
+            http.get(url,(res) => {
                 var body = '';
                 res.setEncoding('utf8');
-                res.on('data', (chunk) => {
+                res.on('data',(chunk) => {
                     body += chunk;
                 });
-                res.on('end', () => {
+                res.on('end',() => {
                     xml2js.parseString(body, {
                         trim: true,
                         explicitArray: false
-                    }, (err, data) => {
-                        for (var i = 0; i < data.feed.entry.length; i++) {
-                            var entry = data.feed.entry[i];
-                            var paper = new ArXivPaper(entry.title, entry.author, entry.summary, new Link());//.to_json();
-                            this.papers.push(paper);
-                        }
-                    });
+                    },(err, data) => {
+                            for (var i = 0; i < data.feed.entry.length; i++) {
+                                var entry = data.feed.entry[i];
+                                var paper = new ArXivPaper(entry.title, entry.author, entry.summary, new Link());//.to_json();
+                                this.papers.push(paper);
+                            }
+                        });
                 });
             });
         }
@@ -73,11 +73,12 @@ module nditor{
             $('.collapsible').collapsible();
         }
     }
-    
+
     app.controller('outlineCtrl', OutlineController);
     app.controller('editorCtrl', EditorController);
     app.controller('arxivCtrl', ArXivController);
 }
+
 interface JQuery {
     collapsible(): void;
 }

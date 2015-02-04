@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     jade = require('gulp-jade'),
     slim = require('gulp-slim'),
-    tsc = require('gulp-tsc'),
+    tsc = require('gulp-typescript'),
     compass = require('gulp-compass'),
     convertEncoding = require('gulp-convert-encoding'),
     exec = require('child_process').exec;
@@ -13,7 +13,7 @@ var error_option = {
   }
 }
 gulp.task('run', function () {
-  exec('nodewebkit');
+  exec('npm start');
 });
 
 gulp.task('slim', function () {
@@ -37,7 +37,7 @@ gulp.task('jade', function () {
 gulp.task('tsc', function () {
   gulp.src(["src/**/*.ts"])
     .pipe(plumber())
-    .pipe(tsc())
+    .pipe(tsc({target: "ES5", removeComments: true}))
     .pipe(gulp.dest('./dist'));
 });
 

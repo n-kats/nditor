@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 'use strict';
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -7,17 +6,14 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 var fs = require('fs');
-
 var Canvas = (function () {
     function Canvas(id, painter) {
         this.borderWidth = 0;
         this.id = id;
-
         var canvas = document.getElementById(id);
         if (!canvas || !canvas.getContext)
             return;
         var context = canvas.getContext("2d");
-
         this.painter = painter;
         this.canvas = canvas;
         this.context = context;
@@ -27,14 +23,14 @@ var Canvas = (function () {
     }
     Canvas.prototype.setActions = function (painter) {
         var _this = this;
-        if (typeof painter === "undefined") { painter = this.painter; }
+        if (painter === void 0) { painter = this.painter; }
         ["mousedown", "mousemove", "mouseup", "mouseleave"].forEach(function (actionName) {
             _this.resetAction(actionName);
             _this.setAction(actionName, painter);
         });
     };
     Canvas.prototype.setAction = function (actionName, painter) {
-        if (typeof painter === "undefined") { painter = this.painter; }
+        if (painter === void 0) { painter = this.painter; }
         $("#" + this.id).on(actionName, function (e) {
             if (painter.tool && painter.tool.actions[actionName]) {
                 painter.tool.actions[actionName](e);
@@ -52,20 +48,18 @@ var Canvas = (function () {
         var y = e.pageY - $("#" + this.id).offset().top - this.borderWidth;
         return [x, y];
     };
-
     Canvas.prototype.drawPoint = function (x, y, width, color) {
-        if (typeof width === "undefined") { width = 1; }
-        if (typeof color === "undefined") { color = "#000000"; }
+        if (width === void 0) { width = 1; }
+        if (color === void 0) { color = "#000000"; }
         this.context.strokeStyle = color;
         this.context.fillStyle = color;
         this.context.beginPath();
         this.context.arc(x, y, width / 2, 0, Math.PI * 2, false);
         this.context.fill();
     };
-
     Canvas.prototype.drawLine = function (x, y, xx, yy, width, color) {
-        if (typeof width === "undefined") { width = 1; }
-        if (typeof color === "undefined") { color = "#000000"; }
+        if (width === void 0) { width = 1; }
+        if (color === void 0) { color = "#000000"; }
         this.context.strokeStyle = color;
         this.context.fillStyle = color;
         this.context.lineWidth = width;
@@ -74,10 +68,6 @@ var Canvas = (function () {
         this.context.lineTo(xx, yy);
         this.context.stroke();
     };
-
-    /**
-    * �摜�\��
-    */
     Canvas.prototype.clear = function () {
         this.context.clearRect(0, 0, this.width, this.height);
     };
@@ -85,13 +75,11 @@ var Canvas = (function () {
         this.clear();
         this.context.drawImage(image, x, y);
     };
-
     Canvas.prototype.dataUrl = function () {
         return this.canvas.toDataURL();
     };
     return Canvas;
 })();
-
 var Painter = (function () {
     function Painter() {
     }
@@ -101,17 +89,10 @@ var Painter = (function () {
     };
     Painter.prototype.use = function (newTool) {
         this.resetActions();
-
         this.tool = newTool;
-        /*
-        for (var action in this.tool.actions) {
-        console.log(action, this.tool.actions[action]);
-        };
-        */
     };
     return Painter;
 })();
-
 var Tool = (function () {
     function Tool(name, actions) {
         this.name = name;
@@ -119,7 +100,6 @@ var Tool = (function () {
     }
     return Tool;
 })();
-
 var Pen = (function (_super) {
     __extends(Pen, _super);
     function Pen() {
@@ -127,7 +107,6 @@ var Pen = (function (_super) {
     }
     return Pen;
 })(Tool);
-
 var ToolButton = (function () {
     function ToolButton(id, tool, painter) {
         var _this = this;
@@ -140,27 +119,9 @@ var ToolButton = (function () {
     }
     return ToolButton;
 })();
-
-/*
-class ConfigButton {
-id: string;
-tool: Tool;
-painter: Painter;
-constructor(id: string, tool: Tool, painter: Painter) {
-this.id = id;
-this.tool = tool;
-this.painter = painter;
-$("#" + id).on("click", () => {
-this.painter.use(this.tool);
-});
-}
-}
-*/
 $(function () {
     var painter = new Painter();
     var canvas = new Canvas("canvas__main", painter);
-
-    //var cursorCanvas = new Canvas("canvas__cursor", painter);
     var pen = new Pen("pen", {
         mousedown: function (e) {
             var pos = canvas.position(e);
@@ -183,7 +144,6 @@ $(function () {
             pen.isDrawing = false;
         }
     });
-
     var eraser = new Pen("eraser", {
         mousedown: function (e) {
             var pos = canvas.position(e);
@@ -207,18 +167,6 @@ $(function () {
             eraser.isDrawing = false;
         }
     });
-
-    /*
-    var stamp = new Tool("stamp", {
-    mousemove: e=> {
-    var pos = cursorCanvas.position(e);
-    cursorCanvas.showImage(pos[0], pos[1], $("#stamp")[0]);
-    },
-    mouseleave: e=> {
-    cursorCanvas.clear();
-    }
-    });
-    */
     new ToolButton("btn__pen", pen, painter);
     new ToolButton("btn__eraser", eraser, painter);
     $("#btn__clear").on("click", function () {
@@ -232,19 +180,5 @@ $(function () {
         fs.writeFile("./tmp/data.png", buffer);
         console.log("./tmp/data.png");
     });
-
     painter.use(pen);
 });
-/*
-class CanvasControl {
-}
-function setupCanvas(id: string, ctrl: CanvasControl) {
-$(id).on("mousedown",() => {
-console.log("click");
-});
-}
-$(document).ready(() => {
-var ctrl = new CanvasControl();
-setupCanvas("#main", ctrl);
-});
-*/
