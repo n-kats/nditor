@@ -44,8 +44,9 @@ var nditor;
     nditor.PdfController = PdfController;
     var ArXivController = (function () {
         function ArXivController() {
-            this.query = '?search_query=all:math.GT&start=0&max_results=25& sortBy=lastUpdatedDate & sortOrder=ascending';
+            this.query = '?search_query=all:math.GT&max_results=25&sortBy=lastUpdatedDate&sortOrder=descending';
             this.papers = [];
+            this.load();
         }
         ArXivController.prototype.load = function () {
             var _this = this;
@@ -66,12 +67,15 @@ var nditor;
                             var paper = new ArXivPaper(entry.title, entry.author, entry.summary, new Link());
                             _this.papers.push(paper);
                         }
+                        _this.showup();
                     });
                 });
             });
         };
         ArXivController.prototype.showup = function () {
-            $('.collapsible').collapsible();
+            setTimeout(function () {
+                $('.collapsible').collapsible();
+            }, 1000);
         };
         ArXivController.api_url = 'http://export.arxiv.org/api/query';
         return ArXivController;

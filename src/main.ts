@@ -42,10 +42,11 @@ module nditor {
         static api_url = 'http://export.arxiv.org/api/query';
         query: any;
         papers: ArXivPaper[];
+        loaded:Boolean = false;
         constructor() {
-            this.query = '?search_query=all:math.GT&start=0&max_results=25& sortBy=lastUpdatedDate & sortOrder=ascending';
+            this.query = '?search_query=all:math.GT&max_results=25&sortBy=lastUpdatedDate&sortOrder=descending';
             this.papers = [];
-            //this.load();
+            this.load();
         }
         load() {
             var url = ArXivController.api_url + this.query;
@@ -67,10 +68,18 @@ module nditor {
                             }
                         });
                 });
+
+                this.loaded = true;
             });
         }
         showup() {
-            $('.collapsible').collapsible();
+            if (!this.loaded) {
+                this.load();
+            }
+            console.log(this);
+            setTimeout(() => {
+                $('.collapsible').collapsible();
+            }, 1000);
         }
     }
 
@@ -79,9 +88,6 @@ module nditor {
     app.controller('arxivCtrl', ArXivController);
 }
 
-interface JQuery {
-    collapsible(): void;
-}
 
 class ArXivPaper {
     title: string;
